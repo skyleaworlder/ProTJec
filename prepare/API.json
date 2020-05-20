@@ -1,0 +1,267 @@
+{
+  "login": [
+    {
+      "path": "/login",
+      "method": "post",
+      "param": {
+          "usr_no": "str",
+          "usr_password": "str"
+      },
+      "return": {
+          "type": "Object",
+          "content": {
+              "status": "str",
+              "name": "str",
+              "level": "str",
+              "inst": "str",
+              "grade":"str",
+              "avatar":"str",
+              "document":"str",
+              "proTJec_token":"str"
+          }
+      }
+    }
+  ],
+
+  "projects": [
+    {
+      "path": "/projects/fetch",
+      "method": "get",
+      "param": {
+        "json": {
+            "limit": "int",
+            "page": "int"
+        }
+       },
+      "return": {
+          "type": "Object",
+          "content": {
+            "status":"str",
+            "data":{
+              "projects": {
+                "id":"int",
+                "name": "str",
+                "sort": "str",
+                "releaseTime": "str",
+                "endTime": "str",
+                "need": "str",
+                "intro": "str"
+              },
+              "total": "int"
+            }
+          }
+        }
+    },
+    {
+      "path": "/projects/add",
+      "method": "post",
+      "param": {
+        "json": {
+          "name": "str",
+          "sort": "str",
+          "releaseTime": "str",
+          "endTime": "str",
+          "need": "str",
+          "intro": "str",
+          "tags": [{
+            "id": "int",
+            "name": "str"
+          }]
+        }
+      },
+      "return": {
+        "type":"Object",
+        "content": {
+          "status": "str"
+        }
+      }
+    },
+    {
+      "path": "/projects/info",
+      "method":"get",
+      "param": {
+        "url_param": {
+          "id": "int"
+        },
+        "json": {
+          "id": "int"
+        }
+      },
+      "return": {
+        "type":"Object",
+        "content": {
+          "status":"str",
+          "data": {
+            "name":"str",
+            "initiator": {
+              "no": "str",
+              "name":"str",
+              "inst":"str",
+              "avatar":"str"
+            },
+            "responder": [
+              {},{},{}
+            ],
+            "sort":"str",
+            "releaseTime":"str",
+            "endTime":"str",
+            "need":"str",
+            "intro":"str"
+          }
+        }
+      }
+    }
+  ],
+
+  "join": [
+    {
+      "path":"/join/agree",
+      "method":"post",
+      "param":{
+        "url_param":{
+          "usr_id": "int"
+        },
+        "json":{
+          "usr_id":"int",
+          "pro_id":"int"
+        }
+      },
+      "return":{
+        "status":"str"
+      }
+    },
+    {
+      "path":"/join/pro",
+      "method":"post",
+      "param":{
+        "url_param":{
+          "usr_id":"int"
+        },
+        "json":{
+          "usr_id":"int",
+          "pro_id":"int"
+        }
+      },
+      "return":{
+        "status":"str"
+      }
+    }
+  ],
+
+  "response": [
+    {
+      "path":"/response/fetch",
+      "method":"get",
+      "param":{
+        "url_param":{
+          "limit":"int",
+          "page":"int",
+          "usr_id":"int",
+          "//": "usr_id 并非是申请者用户，而是允许者用户"
+        }
+      },
+      "return":{
+        "type":"Object",
+        "content":{
+          "status":"str",
+          "data":{
+            "responses": [{
+              "req_user": {
+                "id":"int",
+                "name":"str",
+                "inst": "str",
+                "grade":"str",
+                "avatar":"str",
+                "document":"str"
+              },
+              "projects":{
+                "id":"int",
+                "name": "str",
+                "sort": "str",
+                "endTime": "str",
+                "need": "str",
+                "intro": "str"
+              }
+            }]
+          }
+        }
+      }
+    }
+  ],
+
+  "info": [
+    {
+      "path": "/info/update",
+      "method":"post",
+      "param":{
+        "json":{
+          "id":"int",
+          "name":"str",
+          "no":"str",
+          "inst":"str",
+          "grade":"str",
+          "document":"str",
+          "chat":"str",
+          "avatar":"str"
+        }
+      },
+      "return":{
+        "type":"Object",
+        "content": {
+          "status":"str",
+          "data":{
+            "no":"str",
+            "name":"str",
+            "inst":"str",
+            "grade":"str",
+            "document":"str",
+            "chat":"str",
+            "avatar":"str"
+          }
+        }
+      }
+    },
+
+    {
+      "path":"/info/token",
+      "method":"get",
+      "param":{
+        "json":{
+          "no":"str"
+        }
+      },
+      "return":{
+        "type":"Object",
+        "content":{
+          "status":"str",
+          "proTJec_token":"str"
+        }
+      }
+    },
+
+    {
+      "path":"/info/get",
+      "method":"get",
+      "param":{
+        "url_param":{
+          "id":"int"
+        }
+      },
+      "return":{
+        "type":"Object",
+        "content":{
+          "status":"str",
+          "data":{
+            "no":"str",
+            "name":"str",
+            "grade":"str",
+            "inst":"str",
+            "avatar":"str",
+            "document":"str",
+            "chat":"str"
+          }
+        }
+      }
+    }
+  ]
+}
