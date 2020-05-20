@@ -36,6 +36,23 @@ git config core.autocrlf false
 
 
 
+至于启动时，只需要
+
+```powershell
+cd /front_end/scorefake
+npm run dev
+```
+
+即可，没装 npm 的话，可能需要装一装。
+
+```net
+https://nodejs.org/en/download/
+```
+
+（估计用的是 Windows，这里下 `msi` 比较方便，其他操作系统的话，有其他更方便的方式）
+
+
+
 
 
 最后是 `back_end`。
@@ -44,3 +61,25 @@ git config core.autocrlf false
 
 没有使用多余的 `flask` 插件，基本纯手写，锻炼自己的 `SQL`（其实根本没有，因为涉及的查询太简单了
 
+
+
+启动的话
+
+```powershell
+cd /back_end/src
+flask run
+```
+
+不需要配其他东西，在 `/back_end/src/.flaskenv` 里面配过模式和默认端口。
+
+运行这个后端需要在 MySQL 中首先运行 `prepare` 里面的数据库脚本，加载数据库。
+
+```mysql
+mysql> SOURCE ansi_1_0.sql;
+mysql> show databases;
+mysql> use protjec;
+mysql> show tables;
+mysql> desc users;
+```
+
+以检查数据库状态。
