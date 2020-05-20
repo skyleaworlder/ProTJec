@@ -1,0 +1,93 @@
+
+$card_header_font1: #fff;
+$card_header_font2: #000;
+$card_header_bg_blue: #487deed5;
+$card_header_bg_red: rgba(243, 61, 131, 0.671);
+$card_header_bg_yellow: rgba(245, 221, 9, 0.925);
+$card_header_bg_green: rgba(81, 204, 97, 0.877);
+$table_title_bg: #ddf0e6;
+
+$card_content_height: 100px;
+$font_size: 15px;
+$card_interval: 24px;
+
+.inner {
+  .el-card__header {
+    padding: 7px;
+  }
+}
+
+// rewrite this style
+.blue-card {
+  .el-card__header {
+    background-color: $card_header_bg_blue;
+    color: $card_header_font1;
+  };
+}
+
+.red-card {
+  .el-card__header {
+    background-color: $card_header_bg_red;
+    color: $card_header_font1;
+  }
+}
+
+.green-card {
+  .el-card__header {
+    background-color: $card_header_bg_green;
+    color: $card_header_font1;
+  }
+}
+
+.yellow-card {
+  .el-card__header {
+    background-color: $card_header_bg_yellow;
+    color: $card_header_font1;
+  }
+}
+
+.req-card {
+  margin-top: $card_interval;
+  width: 100%; // 动态调整
+  height: 200px;
+  min-height: 200px;
+  max-width: 250px;
+
+  .right-tag {
+    position: relative;
+    float: right;
+  }
+
+  .card-content {
+    font-size: $font_size;
+    color: black;
+    min-height: 100px;
+    .card-content-right {
+      border-left: 1px solid #1b1b2b41;
+      padding-left: 24px;
+      height: $card_content_height;
+      overflow:hidden; //超出的文本隐藏
+      text-overflow:ellipsis; //溢出用省略号显示
+      display:-webkit-box;
+      -webkit-box-orient:vertical;
+      -webkit-line-clamp: floor($card_content_height / $font_size);
+    }
+  }
+
+  .time {
+    .releaseTime {
+      float: right;
+      // 只能加在这里，因为使用 relative 之后
+      // time 所在的 div实际上是没有宽度的，为 0
+      // 只能在 span 这里加 padding
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    .endTime {
+      float: left;
+    }
+    position: relative;
+    font-size: 13px;
+    color: gray;
+  }
+}

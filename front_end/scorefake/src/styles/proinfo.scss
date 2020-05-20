@@ -1,0 +1,147 @@
+
+$card_header_font1: #fff;
+$card_header_font2: #000;
+$card_header_bg_blue: #487deed5;
+$card_header_bg_red: rgba(243, 61, 131, 0.671);
+$card_header_bg_yellow: rgba(255, 224, 49, 0.973);
+$card_header_bg_green: rgba(81, 204, 97, 0.877);
+$table_title_bg: #ddf0e6;
+
+$card_interval: 24px;
+$card_info_avatar_border: #aaa;
+$avatar-width-init: 60px;
+$avatar-width-resp: 30px;
+
+$title-size: 20px;
+$content-color: #777;
+
+.pro-card-info {
+
+  .pro-info-avatar {
+    padding: 20px 50px 0px 50px; // bottom no padding
+    overflow: hidden; // 没这句话就废了，div height 变成0
+
+    .initiator {
+      min-height: 10px;
+      border-right: 1px solid $card_info_avatar_border;
+
+      .init-title {
+        font-size: $title-size;
+      }
+      .card-image {
+        border-radius: $avatar-width-init / 2;
+        width: $avatar-width-init;
+        height: $avatar-width-init;
+        margin-top: 10px;
+      }
+    }
+
+    .responders {
+      .resp-title {
+        font-size: $title-size;
+      }
+      .card-image {
+        border-radius: $avatar-width-resp / 2;
+        width: $avatar-width-resp;
+        height: $avatar-width-resp;
+        margin-top: 10px;
+      }
+    }
+  }
+
+  .pro-intro {
+    padding: 50px 50px 0 50px;
+
+    .pro-intro-title {
+      font-size: $title-size;
+      border-bottom: 1px solid $card_info_avatar_border;
+      padding: 0 0 10px 0;
+    }
+    .pro-intro-content {
+      padding: 10px 0 0 0;
+      color: $content-color;
+    }
+  }
+
+  .pro-need {
+    padding: 50px 50px 0 50px;
+
+    .pro-need-title {
+      font-size: $title-size;
+      padding: 0 0 10px 0;
+    }
+  }
+
+  .pro-info-other {
+    padding: 50px 50px 0 50px;
+    overflow: hidden;
+
+    .pro-info-time {
+      .pro-time-title {
+        font-size: $title-size;
+        padding: 0 0 10px 0;
+      }
+
+      .pro-time-content {
+        padding: 10px 0 10px 0;
+      }
+    }
+
+    .pro-info-sort {
+      .pro-sort-title {
+        font-size: $title-size;
+        padding: 0 0 10px 0;
+      }
+      .pro-sort-content {
+        padding: 10px 0 10px 0;
+      }
+    }
+  }
+
+  .join {
+    padding: 20px 0 20px 0;
+    min-width: 300px;
+    width: 300px;
+    margin: 0 auto;
+    .join-btn {
+      min-width: 300px;
+      min-height: 50px;
+      font-size: 20px;
+    }
+  }
+}
+
+.inner {
+  .el-card__header {
+    padding: 7px;
+  }
+}
+
+// rewrite this style
+.blue-card {
+  .el-card__header {
+    background-color: $card_header_bg_blue;
+    color: $card_header_font1;
+  };
+}
+
+.red-card {
+  .el-card__header {
+    background-color: $card_header_bg_red;
+    color: $card_header_font1;
+  }
+}
+
+.yellow-card {
+  .el-card__header {
+    background-color: $card_header_bg_yellow;
+    color: $card_header_font1;
+  }
+}
+
+.green-card {
+  .el-card__header {
+    background-color: $card_header_bg_green;
+    color: $card_header_font1;
+  }
+}
