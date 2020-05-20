@@ -26,6 +26,18 @@
 
 
 
+<span  style="color:red"><u>对 `front_end` 文件夹中内容进行修改之前，必须在 git 上输入以下命令。</u></span>
+
+```git
+git config core.autocrlf false
+```
+
+自动生成的 `package.json` 默认为 LF，add 时会出问题。
+
+
+
+
+
 最后是 `back_end`。
 
 后端项目所在位置，同样嵌套了一层。
