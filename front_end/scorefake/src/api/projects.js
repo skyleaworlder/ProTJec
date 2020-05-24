@@ -47,3 +47,12 @@ export function fetchRequestUsers(data) {
     method: 'get'
   })
 }
+
+export function changeRequestStatus(data) {
+  const { usr_id, pro_id, state } = data
+  return request({
+    url: `/response/changeState`,
+    method:'post',
+    data
+  })
+}

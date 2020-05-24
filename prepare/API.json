@@ -157,7 +157,7 @@
           "limit":"int",
           "page":"int",
           "usr_id":"int",
-          "//": "usr_id 并非是申请者用户，而是允许者用户"
+          "//": "usr_id 并非是申请者用户，而是允许者用户, 这个api暂时废弃了"
         }
       },
       "return":{
@@ -183,6 +183,27 @@
                 "intro": "str"
               }
             }]
+          }
+        }
+      }
+    },
+
+    {
+      "path":"/response/changeState",
+      "method":"post",
+      "param":{
+        "json":{
+          "usr_id":"int",
+          "pro_id":"int",
+          "state":"str"
+        }
+      },
+      "return":{
+        "type":"Object",
+        "content":{
+          "status":"str",
+          "data":{
+            "state":"str"
           }
         }
       }

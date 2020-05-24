@@ -85,19 +85,23 @@ def proGetInfo(**checkrst):
     try:
         print("checkrst:", checkrst)
         id = int(request.args.get('id'))
+        # 获得项目的所有信息
         pro = R.getProInfoById(id)
         if pro.size() != 1:
             return jsonify({"status": PROJ_UNEXIST})
         pro_records = pro.records()[0]
 
+        # 获得首倡者的所有信息
         initiator = R.getInitiatorInfoByProId(id)
         if initiator.size() != 1:
             return jsonify({"status": PROJ_UNEXIST})
         initiator_records = initiator.records()
 
+        # 获得响应者的所有信息
         responders = R.getRespondersInfoByProId(id)
         responders_records = responders.records()
 
+        # 获得项目的所有tag
         tags = R.getProTagsByProId(id)
         tags_records = []
         if tags.size() != 0:

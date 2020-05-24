@@ -60,7 +60,7 @@ export default {
       }
     },
     sb() {
-      this.$props.callback(this.$props.id)
+      this.$props.callback(this.$props.id, this.$props.name)
       console.log(this.$props.id)
       
     }

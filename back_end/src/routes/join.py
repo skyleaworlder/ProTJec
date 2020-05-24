@@ -11,14 +11,14 @@ from ..db import read as R
 
 joinBp = Blueprint('join', __name__, url_prefix='/join')
 
-
+# 只管同意后的操作，这里修改了 usrpro 这个表以及 pro_need
+# 至于 response 中的状态 state 则不在管辖范围内
 @joinBp.route('agree', methods=['POST'])
 def agreeJoin(**checkrst):
     try:
         data = request.get_json()
         usr_id = data['usr_id']
         pro_id = data['pro_id']
-        state = data['state']
         print("checkrst:", checkrst, data)
 
         # check user and project exist
@@ -31,9 +31,8 @@ def agreeJoin(**checkrst):
 
         DR1 = C.capAgreeJoin(usr_id, pro_id)
         DR2 = U.proNeedDecrease(pro_id)
-        DR3 = U.changeRspState(usr_id, pro_id, state)
 
-        if DR1.size() != 1 and DR2.size() != 1 and DR3.size() != 1:
+        if DR1.size() != 1 and DR2.size() != 1:
             return jsonify({"status": JOIN_ERROR})
         if DR2.records()[0]['need'] == 0:
             U.changeProState(pro_id, '3')

@@ -18,7 +18,9 @@
         <div v-for="(resp,index) in proInfo.responder" :key="index">
           <span><router-link :to="'/profile/'+resp.id">
             <img :src="resp.avatar" class="card-image">
-          </router-link></span>
+          </router-link>
+            <span style="color:#777; padding:5px;vertical-align: super;">用户名：{{ resp.name }}</span>
+          </span>
         </div>
       </el-col>
     </div>

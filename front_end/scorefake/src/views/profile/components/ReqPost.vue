@@ -7,13 +7,13 @@
     </div>
     <p>{{ responder.document }}</p>
     <ul class="list-inline">
-      <li>
+      <li @click="agree(responder.id, pro_id, 'P')">
         <span class="link-black text-sm">
           <i class="el-icon-share" />
           同意
         </span>
       </li>
-      <li>
+      <li @click="agree(responder.id, pro_id, 'F')">
         <span class="link-black text-sm">
           <svg-icon icon-class="like" />
           拒绝
@@ -24,10 +24,47 @@
 </template>
 
 <script>
+import { changeRequestStatus } from '@/api/projects'
+import { agreeJoinPro } from '@/api/usrpro'
+import { Message } from 'element-ui'
+
 export default {
   name: 'ReqPost',
+  data() {
+    return {
+      loading: false
+    }
+  },
   props: {
-    responder: { type: Object, required: true }
+    responder: { type: Object, required: true },
+    pro_id: { type: Number, required: true }
+  },
+  methods: {
+    agree(usr_id, pro_id, state) {
+      this.loading = true
+      changeRequestStatus({ usr_id, pro_id, state }).then(response => {
+        const data = response.data.data
+        if (data.state != state) {
+          Message({ type: 'error', message: '出现错误！', duration: 1500 })
+        }
+      }, setTimeout(() => {
+        ;
+      }, 1.5*100))
+      console.log("status changed");
+      
+      agreeJoinPro({ usr_id, pro_id }).then(response => {
+        const data = response.data
+        if (data.status != 'JOIN_SUCCESS') {
+          Message({ type: 'error', message: '出现意外错误！', duration: 1500 })
+        }
+      }, setTimeout(() => {
+        this.loading = false
+        this.$emit('flush')
+        this.$emit('reqflush', pro_id, undefined)
+        Message({ type: 'success', message: '审核通过', duration: 1500 })
+      }, 1.5*100))
+      console.log("join end");
+    }
   }
 }
 </script>
