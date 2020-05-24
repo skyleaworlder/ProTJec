@@ -136,7 +136,11 @@ export const asyncRoutes = [
         path: ':id',
         component: () => import('@/views/projects/index'),
         name: 'Projects',
-        hidden: true
+        hidden: true,
+
+        meta: {
+          title: 'Projects'
+        }
       }
     ]
   },

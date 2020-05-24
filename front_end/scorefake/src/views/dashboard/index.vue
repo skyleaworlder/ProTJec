@@ -1,27 +1,45 @@
 <template>
   <div class="dash-container">
+    <el-backtop />
     <!-- 表格 div/main/contain/header|table-->
+    <el-row>
+      <el-col :span="10" :offset="4" style="width:min-content">
+        <el-row v-for="elem in projects" :key="elem.name"
+          :span="10" style="overflow:hidden">
+        <!-- min-content make el-row width suitable -->
+          <pro-card
+            :id="elem.id"
+            :name="elem.name"
+            :sort="elem.sort"
+            :release-time="elem.releaseTime"
+            :need="elem.need"
+            :intro="elem.intro"
+          />
+        </el-row>
+        <el-pagination :page-size="projectsQuery.limit" :current-page.sync="projectsQuery.page" :total="proTotal"
+          style="padding:20px" layout="prev, pager, next, jumper"
+          @current-change="pageChange" />
+      </el-col>
 
-    <el-col :gutter="20" :offset="5">
-      <el-row
-        v-for="elem in projects"
-        :key="elem.name"
-        :span="12"
-      >
-        <pro-card
-          :id="elem.id"
-          :name="elem.name"
-          :sort="elem.sort"
-          :release-time="elem.releaseTime"
-          :need="elem.need"
-          :intro="elem.intro"
-        />
-      </el-row>
-      <el-pagination :page-size="projectsQuery.limit" :current-page.sync="projectsQuery.page" :total="proTotal"
-        style="padding:20px" layout="prev, pager, next, jumper"
-        @current-change="pageChange" />
-    </el-col>
-    as
+
+      <el-col :offset="1" :span="6" class="adv-container">
+        <el-row v-for="link in links" :key="link.url" style="padding-top:20px">
+          <el-card :body-style="{ padding:0 }">
+            <img :src="link.pic" style="display:block; width:400px; height:200px">
+            <div style="padding:15px">
+              <div style="padding-bottom:10px">{{ link.title }}</div>
+              <span style="font-size:14px;color:#999">
+                {{ link.subtitle }}
+              </span><span style="float:right">
+                <a :href="link.url" style="color: blue">{{ link.click }}</a>
+              </span>
+            </div>
+          </el-card>
+        </el-row>
+      </el-col>
+
+
+    </el-row>
   </div>
 </template>
 
@@ -29,6 +47,7 @@
 
 import ProCard from './component/ProCard'
 import { fetchProjects } from '@/api/projects'
+import '@/styles/dashboard.scss'
 
 export default {
   name: 'Dashboard',
@@ -38,10 +57,34 @@ export default {
       projects: '',
       projectsLoading: false,
       projectsQuery: {
-        limit: 2,
+        limit: 10,
         page: 1
       },
-      proTotal: 0
+      proTotal: 0,
+
+      links: [
+        {
+          pic: require('./assets/jiying0.png'),
+          title: '不去大名鼎鼎的 CXCY 看看吗？',
+          subtitle:'快去 cxcy 和 Ta 绑在一起',
+          url: 'http://cxcy.tongji.edu.cn',
+          click: '点我！'
+        },
+        {
+          pic: require('./assets/jiying1.png'),
+          title: '同心云已死，OfCourse 当立！',
+          subtitle: '开发 3 个月的软工级论坛',
+          url: 'https://www.baidu.com',
+          click: '没公测呢'
+        },
+        {
+          pic: require('./assets/jiying2.jpg'),
+          title: '逛累了，回寝室吧',
+          subtitle: '同济大学图书馆入口',
+          url: 'http://www.lib.tongji.edu.cn',
+          click: '休息一下'
+        }
+      ]
     }
   },
 
@@ -111,4 +154,11 @@ $table_title_bg: #ddf0e6;
 </style>
 
 <style lang="scss" scoped>
+
+.adv-container {
+  @media screen and (max-width: 1200px) {
+    display: none;
+  }
+}
+
 </style>

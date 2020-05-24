@@ -1,5 +1,5 @@
 <template>
-  <el-card class="proj-card" :class="getColor(sort)">
+  <el-card class="proj-card" :class="getColor(sort)" shadow="always">
     <div slot="header" class="card-header">
       <span>{{ name }}</span>
       <router-link :to="'/projects/'+id">

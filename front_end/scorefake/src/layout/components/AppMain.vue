@@ -29,6 +29,7 @@ export default {
 .app-main {
   /* 50= navbar  50  */
   min-height: calc(100vh - 50px);
+  text-align: left;
   width: 100%;
   margin-top: ($tagsViewHeight + $navBarHeight);
   position: absolute;

@@ -154,3 +154,25 @@ def addTagsOfPro(pro_id, tag_id):
         record_names, baseSelect(sql2, (pro_id, tag_id,))
     )
     return DR
+
+
+
+
+def addLoginLogs(lgi_time, usr_id):
+    sql1 = '''
+        INSERT INTO loginLogs (
+            lgi_time, usr_id
+        ) VALUES (
+            %s, %s
+        )
+    '''
+    sql2 = '''
+        SELECT usr_id FROM loginLogs
+        WHERE lgi_time = %s
+    '''
+    baseSelect(sql1, (lgi_time, usr_id,))
+    record_names = ('usr_id')
+    DR = db_result.DbResult(
+        record_names, baseSelect(sql2, (lgi_time,))
+    )
+    return DR
