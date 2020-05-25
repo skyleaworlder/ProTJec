@@ -32,7 +32,7 @@
     </div>
 
 
-    <div class="req-zone" v-if="requests">
+    <div class="req-zone" v-if="requests&&chosenPro">
       <el-row v-for="res in requests" :key="res.id">
         <req-post
           :responder="res"
@@ -65,6 +65,15 @@ const carouselPrefix = '?imageView2/2/h/440'
 export default {
   name: 'Activity',
   components: { ReqCard, ReqPost, ProInfo },
+  filters: {
+    chosenIdFit(id) {
+      if (typeof(id) == 'undefined') {
+        console.log('undedede');
+        
+        return NaN
+      }
+    }
+  },
   data() {
     return {
       carouselImages: [

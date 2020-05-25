@@ -1,22 +1,8 @@
 import request from '@/utils/request'
 
 export function fetchProjects(data) {
-  console.log(data,"hahahahah")
-  let uri = `/projects/fetch`
-  /*
-  if ((data.limit && data.page) || data.initiatorId) {
-    uri += `?`
-    if (data.limit && data.page) {
-      uri += `limit=${data.limit}&page=${data.page}&`
-    }
-    if (data.initiatorId) {
-      uri += `initiatorId=${data.initiatorId}`
-    }
-  }*/
-  console.log(uri);
-
   return request({
-    url: uri,
+    url: `/projects/fetch`,
     method: 'get',
     params: data
   })

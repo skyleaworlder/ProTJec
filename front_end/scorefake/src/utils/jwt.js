@@ -7,7 +7,7 @@ export function getJwtPayload(jwt) {
   console.log(tmp, indexOfDot)
   indexOfDot = tmp.indexOf('.')
   var payload = tmp.substring(0, indexOfDot)
-  console.log(payload, indexOfDot, tmp)
+  console.log(payload, indexOfDot, tmp, "hahah")
   return window.atob(payload)
 }
 

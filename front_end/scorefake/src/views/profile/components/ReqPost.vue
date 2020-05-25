@@ -52,18 +52,27 @@ export default {
       }, 1.5*100))
       console.log("status changed");
       
-      agreeJoinPro({ usr_id, pro_id }).then(response => {
-        const data = response.data
-        if (data.status != 'JOIN_SUCCESS') {
-          Message({ type: 'error', message: '出现意外错误！', duration: 1500 })
-        }
-      }, setTimeout(() => {
-        this.loading = false
-        this.$emit('flush')
-        this.$emit('reqflush', pro_id, undefined)
-        Message({ type: 'success', message: '审核通过', duration: 1500 })
-      }, 1.5*100))
-      console.log("join end");
+      if (state != 'F') {
+        agreeJoinPro({ usr_id, pro_id }).then(response => {
+          const data = response.data
+          if (data.status != 'JOIN_SUCCESS') {
+            Message({ type: 'error', message: '出现意外错误！', duration: 1500 })
+          }
+        }, setTimeout(() => {
+          this.loading = false
+          this.$emit('flush')
+          this.$emit('reqflush', pro_id)
+          Message({ type: 'success', message: '审核通过', duration: 1500 })
+        }, 1.5*100))
+        console.log("join end");
+      } else {
+        setTimeout(() => {
+          console.log(pro_id, "pro_idd");
+          
+          this.$emit('reqflush', pro_id)
+          Message({ type: 'success', message: '成功拒绝', duration: 1500 })
+        }, 1.5*100);
+      }
     }
   }
 }

@@ -22,17 +22,23 @@ export function updateUsrInfo(data) {
 export function refreshToken(data) {
   const { no } = data
   return request({
-    url: `/info/token?no=${no}`,
-    method:"get"
+    url: `/info/token`,
+    method:"get",
+    params: {
+      no
+    }
   })
 }
 
 export function getInfo(data) {
   const { usr_id } = data
-  const uri = `/info/get?id=${usr_id}`;
+  const uri = `/info/get`;
   return request({
     url: uri,
-    method: 'get'
+    method: 'get',
+    params: {
+      id: usr_id
+    }
   })
 }
 
@@ -49,14 +55,3 @@ export function fetchLogs(data) {
     }
   })
 }
-
-/*
-
-export function logout() {
-  return request({
-    url: '/vue-element-admin/user/logout',
-    method: 'post'
-  })
-}
-
-*/
