@@ -84,3 +84,42 @@ export function isArray(arg) {
   }
   return Array.isArray(arg)
 }
+
+
+export const validateName = (rule, value, callback) => {
+  if (value.length <= 0) {
+    callback(new Error('项目名称不能为空'))
+  } else {
+    callback()
+  }
+}
+export const validateSort = (rule, value, callback) => {
+  console.log(value);
+  
+  if (value.length <= 0) {
+    callback(new Error('项目分类不能为空'))
+  } else {
+    callback()
+  }
+}
+export const validateTime = (rule, value, callback) => {
+  if (!value && value.length <= 0) {
+    callback(new Error('项目终止时间不能为空'))
+  } else {
+    callback()
+  }
+}
+export const validateNeed = (rule, value, callback) => {
+  if (value && value >= 1 && value <= 10) {
+    callback()
+  } else {
+    callback(new Error('项目需求人数不能为空'))
+  }
+}
+export const validateIntro = (rule, value, callback) => {
+  if (value.length <= 0) {
+    callback(new Error('项目简介不能为空'))
+  } else {
+    callback()
+  }
+}

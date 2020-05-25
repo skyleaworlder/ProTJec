@@ -94,6 +94,7 @@
 import { addProject } from '@/api/projects'
 import { fetchAllTags } from '@/api/tags'
 import { Message } from 'element-ui'
+import { validateName, validateSort, validateTime, validateNeed, validateIntro } from '@/utils/validate'
 
 const proTypes = [
   { key: '理工', displayName: '理工' },
@@ -103,41 +104,7 @@ const proTypes = [
   { key: '设计', displayName: '设计' },
   { key: '其他', displayName: '其他' }
 ]
-const validateName = (rule, value, callback) => {
-  if (value.length <= 0) {
-    callback(new Error('项目名称不能为空'))
-  } else {
-    callback()
-  }
-}
-const validateSort = (rule, value, callback) => {
-  if (value.length <= 0) {
-    callback(new Error('项目分类不能为空'))
-  } else {
-    callback()
-  }
-}
-const validateTime = (rule, value, callback) => {
-  if (!value && value.length <= 0) {
-    callback(new Error('项目终止时间不能为空'))
-  } else {
-    callback()
-  }
-}
-const validateNeed = (rule, value, callback) => {
-  if (value && value >= 1 && value <= 10) {
-    callback()
-  } else {
-    callback(new Error('项目需求人数不能为空'))
-  }
-}
-const validateIntro = (rule, value, callback) => {
-  if (value.length <= 0) {
-    callback(new Error('项目简介不能为空'))
-  } else {
-    callback()
-  }
-}
+
 export default {
   name: 'AddPro',
   data() {

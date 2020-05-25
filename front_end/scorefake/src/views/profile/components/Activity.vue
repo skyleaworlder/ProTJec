@@ -5,10 +5,7 @@
         <el-col v-for="elem in myProjects" :key="elem.name"
           :xs="12" :sm="12" :lg="8">
           <req-card
-            :id="elem.id"
-            :name="elem.name"
-            :sort="elem.sort"
-            :need="elem.need"
+            :proInfo="elem"
             :callback="getRequest" />
         </el-col>
       </el-col>
@@ -20,19 +17,34 @@
         </div>
       </el-row>
     </div>
+
+
+
+    <div class="proinfo-zone" v-if="chosenPro.id">
+      <pro-info
+        :proInfo="chosenPro"
+        :usr_id="this.$route.params.id"
+        :vis_id="this.$store.state.user.id"
+        />
+    </div>
+    <div v-if="chosenPro.id"
+      style="height:1px; width:100%; margin:24px 0 0 0; background-color:#d2d6de">
+    </div>
+
+
     <div class="req-zone" v-if="requests">
       <el-row v-for="res in requests" :key="res.id">
         <req-post
           :responder="res"
-          :pro_id="chosenProId"
+          :pro_id="chosenPro.id"
           @flush="getAllProInfoIInit"
           @reqflush="getRequest" />
       </el-row>
       <el-row v-if="requests.length==0">
-        <div class="none-req" v-if="chosenProName" >
-          项目 {{ chosenProName }} 暂时没有申请</div>
+        <div class="none-req" v-if="chosenPro.name" >
+          项目 {{ chosenPro.name }} 暂时没有申请</div>
         <div class="none-req" v-else>
-          请点击 项目卡片 的 “查看申请” 键</div>
+          请点击 项目卡片 的 “查看详情” 键</div>
       </el-row>
     </div>
     <div v-else>
@@ -44,6 +56,7 @@
 <script>
 import ReqCard from './ReqCard'
 import ReqPost from './ReqPost'
+import ProInfo from './ProInfo'
 import { Message } from 'element-ui'
 import { fetchProjects, fetchRequestUsers } from '@/api/projects'
 const avatarPrefix = '?imageView2/1/w/80/h/80'
@@ -51,7 +64,7 @@ const carouselPrefix = '?imageView2/2/h/440'
 
 export default {
   name: 'Activity',
-  components: { ReqCard, ReqPost },
+  components: { ReqCard, ReqPost, ProInfo },
   data() {
     return {
       carouselImages: [
@@ -68,8 +81,15 @@ export default {
       },
       myProjects: [],
       requests: [],
-      chosenProId: undefined,
-      chosenProName: undefined
+      chosenPro: {
+        id: undefined,
+        name: undefined,
+        endTime: undefined,
+        releaseTime: undefined,
+        sort: undefined,
+        need: undefined,
+        intro: undefined
+      }
     }
   },
   created() {
@@ -93,12 +113,13 @@ export default {
       })
     },
 
-    getRequest(pro_id, pro_name) {
+    getRequest(proInfo) {
       const data = {
-        pro_id: pro_id
+        pro_id: proInfo.id
       }
-      this.chosenProId = pro_id
-      this.chosenProName = pro_name
+      this.chosenPro = proInfo
+      console.log(this.chosenPro, "proinfo");
+      
       fetchRequestUsers(data).then(response => {
         const { data } = response
         if (data.status === 'GET_SUCCESS') {
@@ -107,6 +128,8 @@ export default {
           this.requests = []
         }
         console.log(this.requests);
+      }).catch(err => {
+        Message({ type:"error", message:err, duration:1500 })
       })
     }
   }
@@ -120,6 +143,7 @@ export default {
     padding: 0 0 40px 0;
     border-bottom: 1px solid #d2d6de;
   }
+
   .user-block {
 
     .username,
@@ -188,6 +212,11 @@ export default {
         color: #999;
       }
     }
+  }
+
+
+  .proinfo-zone {
+    padding: 40px;
   }
 
   .none-req {

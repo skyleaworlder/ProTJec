@@ -82,10 +82,35 @@ def changeUsrInfo(
     '''
     baseSelect(sql1, (
         usr_name, usr_no, usr_inst, usr_grade,
-        usr_document, usr_chat, usr_avatar, id
+        usr_document, usr_chat, usr_avatar, id,
     ))
     record_names = ("no", "name", "inst", "grade", "document", "chat", "avatar")
     DR = db_result.DbResult(
         record_names, baseSelect(sql2, (id,))
+    )
+    return DR
+
+
+
+def updateProInfo(
+        id, pro_name, pro_sort,
+        pro_intro, pro_need
+    ):
+    sql1 = '''
+        UPDATE projects AS P
+        SET P.pro_name = %s, P.pro_sort = %s,
+            P.pro_intro = %s, P.pro_need = %s
+        WHERE P.id = %s
+    '''
+    sql2 = '''
+        SELECT id FROM projects
+        WHERE id = %s AND pro_name = %s AND pro_sort = %s
+    '''
+    baseSelect(sql1, (
+        pro_name, pro_sort, pro_intro, pro_need, id,
+    ))
+    record_names = ("id")
+    DR = db_result.DbResult(
+        record_names, baseSelect(sql2, (id, pro_name, pro_sort,))
     )
     return DR

@@ -99,6 +99,28 @@
       }
     },
     {
+      "path":"/projects/update",
+      "method":"post",
+      "param":{
+        "json":{
+          "id":"int",
+          "name":"str",
+          "sort":"str",
+          "intro":"str",
+          "need":"str"
+        }
+      },
+      "return":{
+        "type":"Object",
+        "content":{
+          "status":"str",
+          "data":{
+            "id":"int"
+          }
+        }
+      }
+    },
+    {
       "path": "/projects/info",
       "method":"get",
       "param": {

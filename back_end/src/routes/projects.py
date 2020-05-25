@@ -5,8 +5,9 @@ from ..glovar import *
 import traceback
 from ..jwt_op import generateJWT
 
-from ..db import read as R
 from ..db import create as C
+from ..db import update as U
+from ..db import read as R
 from ..db import delete as D
 
 proBp = Blueprint("projects", __name__, url_prefix="/projects")
@@ -78,6 +79,34 @@ def proAdd(**checkrst):
     except Exception as e:
         traceback.print_exc()
         return jsonify({"status": PROJ_UNKNOWN})
+
+
+
+
+@proBp.route('/update', methods=['POST'])
+def proUpdate(**checkrst):
+    try:
+        data = request.get_json()
+        id = data['id']
+        name = data['name']
+        sort = data['sort']
+        intro = data['intro']
+        need = data['need']
+        DR1 = U.updateProInfo(id, name, sort, intro, need)
+
+        if DR1.size() != 1:
+            return jsonify({"status": PROJ_UNEXIST})
+        record = DR1.records()[0]
+        return jsonify({
+            "status": PROJ_SUCCESS,
+            "data": {
+                "id": record['id']
+            }
+        })
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"status": PROJ_UNKNOWN})
+
 
 
 @proBp.route('/info', methods=['GET'])

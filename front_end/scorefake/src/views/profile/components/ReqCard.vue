@@ -1,17 +1,17 @@
 <template>
-  <el-card class="req-card" :class="getColor(sort)">
+  <el-card class="req-card" :class="getColor(proInfo.sort)">
     <div slot="header" class="card-header">
-      <span>{{ name }}</span>
+      <span>{{ proInfo.name }}</span>
         <el-tag class="right-tag" size="mini"
-          :type="getButtonColor(sort)"
+          :type="getButtonColor(proInfo.sort)"
           @click.native="sb">
-          查看申请</el-tag>
+          查看详情</el-tag>
     </div>
 
     <div class="card-content">
       <el-col :span="24">
         <div class="card-content-left" style=" text-align:center">
-          <span style="padding-left: 10px; font-size: 90px;">{{ need }}</span>
+          <span style="padding-left: 10px; font-size: 90px;">{{ proInfo.need }}</span>
           <span>Waiting...</span>
         </div>
       </el-col>
@@ -26,10 +26,7 @@ import '@/styles/reqcard.scss'
 export default {
   name: 'ReqCard',
   props: {
-    name: { type: String, required: true },
-    sort: { type: String, required: true },
-    id: { type: Number, required: true },
-    need: { type: Number, required: true },
+    proInfo: { type: Object, required: true },
     callback: { type: Function, required: true }
   },
   methods: {
@@ -60,9 +57,8 @@ export default {
       }
     },
     sb() {
-      this.$props.callback(this.$props.id, this.$props.name)
-      console.log(this.$props.id)
-      
+      this.$props.callback(this.$props.proInfo)
+      console.log(this.$props.proInfo.id)
     }
   }
 }
