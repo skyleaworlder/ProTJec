@@ -3,8 +3,8 @@
     <div class="pro-zone" v-if="myProjects">
       <el-col :gutter="20" :offset="0">
         <el-col v-for="elem in myProjects" :key="elem.name"
-          :span="8">
-          <req-card style="min-width:200px"
+          :xs="12" :sm="12" :lg="8">
+          <req-card
             :id="elem.id"
             :name="elem.name"
             :sort="elem.sort"

@@ -36,6 +36,20 @@ export function getInfo(data) {
   })
 }
 
+
+export function fetchLogs(data) {
+  const { usr_id, limit, offset } = data
+  return request({
+    url: '/login/logs/fetch',
+    method: 'get',
+    params: {
+      usr_id: usr_id,
+      limit: limit,
+      offset: offset
+    }
+  })
+}
+
 /*
 
 export function logout() {

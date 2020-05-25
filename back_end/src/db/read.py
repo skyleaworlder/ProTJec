@@ -41,6 +41,22 @@ def getPwdByNo(usr_no):
     return DR
 
 
+
+def getLoginLogs(usr_id, limit, offset):
+    sql = '''
+        SELECT lgi_time, '用户登录' FROM loginLogs
+        WHERE usr_id = %s
+        ORDER BY lgi_time DESC
+        LIMIT %s OFFSET %s
+    '''
+    record_names = ("time", "comment")
+    DR = db_result.DbResult(
+        record_names, baseSelect(sql, (usr_id, limit, offset,))
+    )
+    return DR
+
+
+
 def getUsrInfoByNo(usr_no):
     record_names = (
         "id", "no", "name", "level", "inst",

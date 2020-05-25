@@ -12,7 +12,7 @@
       <el-col :span="24">
         <div class="card-content-left" style=" text-align:center">
           <span style="padding-left: 10px; font-size: 90px;">{{ need }}</span>
-          <span style="padding-left: 5px">Waiting...</span>
+          <span>Waiting...</span>
         </div>
       </el-col>
     </div>

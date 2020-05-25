@@ -3,22 +3,24 @@
     <div v-if="user">
       <el-row :gutter="20">
 
-        <el-col :span="6" :xs="24">
+        <el-col :xs="{span:24, offset:0}" :sm="{span:8, offset:0}"
+          :lg="{span:5, offset:3}">
           <user-card :user="user" />
         </el-col>
 
-        <el-col :span="18" :xs="24">
+        <el-col :xs="{span:24, offset:0}" :sm="{span:16, offset:0}"
+          :lg="{span:13, offset:0}">
           <el-card>
             <el-tabs v-model="activeTab">
               <el-tab-pane v-if="accountVisible"
-                label="Activity" name="activity">
+                label="审核列表" name="activity">
                 <activity />
               </el-tab-pane>
-              <el-tab-pane label="Timeline" name="timeline">
+              <el-tab-pane label="登录日志" name="timeline">
                 <timeline />
               </el-tab-pane>
               <!-- TODO: 想用一个变量解决，如何办到？？？ -->
-              <el-tab-pane v-if="accountVisible" label="Account" name="account">
+              <el-tab-pane v-if="accountVisible" label="个人信息" name="account">
                 <account :user="user" />
               </el-tab-pane>
             </el-tabs>

@@ -20,6 +20,28 @@
               "proTJec_token":"str"
           }
       }
+    },
+    {
+      "path":"/login/logs/fetch",
+      "method":"get",
+      "param":{
+        "usr_id":"int",
+        "limit":"int",
+        "offset":"int"
+      },
+      "return":{
+        "type":"Object",
+        "content":{
+          "status":"str",
+          "data":{
+            "Logs":[{
+              "time":"str",
+              "comment":"str",
+              "//":"comment里面写login，现在只有登录日志会被记录，其他懒得实现了"
+            }]
+          }
+        }
+      }
     }
   ],
 

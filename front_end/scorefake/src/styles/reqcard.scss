@@ -48,7 +48,7 @@ $card_interval: 24px;
 
 .req-card {
   margin-top: $card_interval;
-  width: 100%; // 动态调整
+  min-width: 190px; // 动态调整
   height: 200px;
   min-height: 200px;
   max-width: 250px;

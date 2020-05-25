@@ -54,3 +54,27 @@ def login():
         return jsonify({
             'status': LOGIN_UNKNOWN
         })
+
+
+
+@loginBp.route('/logs/fetch', methods=['GET'])
+def loginLogsFetch(**checkrst):
+    try:
+        usr_id = int(request.args.get('usr_id'))
+        limit = int(request.args.get('limit'))
+        offset = int(request.args.get('offset'))
+
+        DR1 = R.getLoginLogs(usr_id, limit, offset)
+        if DR1.size() < 0:
+            return jsonify({"status": GET_FAILED})
+        
+        loginLogs = DR1.records()
+        return jsonify({
+            "status": GET_SUCCESS,
+            "data": {
+                "loginLogs": loginLogs
+            }
+        })
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"status": GET_UNKNOWN})
