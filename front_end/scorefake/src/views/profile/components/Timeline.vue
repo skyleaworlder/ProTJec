@@ -31,7 +31,7 @@ export default {
   methods: {
     getLogs() {
       const params = {
-        usr_id: this.$store.state.user.id,
+        usr_id: this.$route.params.id,
         limit: this.select.limit,
         offset: this.select.offset
       }
