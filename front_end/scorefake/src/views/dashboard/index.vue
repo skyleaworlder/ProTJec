@@ -1,22 +1,62 @@
 <template>
   <div class="dash-container">
     <el-backtop />
+
+    <el-row class="search-container">
+      <el-col :span="18" :offset="4">
+        <el-form :inline="true" :model="projectsQuery">
+          <el-form-item label="项目类型" prop="sort">
+            <el-select v-model="projectsQuery.sort" ref="sort"
+              size="small" placeholder="请选择项目种类" >
+              <el-option v-for="type in proTypes" :key="type.key" :label="type.displayName" :value="type.key" />
+            </el-select>
+          </el-form-item>
+
+          <el-form-item label="项目tag" prop="tagId">
+            <el-select v-model="projectsQuery.tagId" ref="tagId"
+              size="small" placeholder="请选择tag" >
+              <el-option v-for="type in tags" :key="type.id" :label="type.name" :value="type.id" />
+            </el-select>
+          </el-form-item>
+
+          <el-form-item label="项目状态" prop="state">
+            <el-select v-model="projectsQuery.state" ref="state"
+              size="small" placeholder="请选择项目状态" >
+              <el-option v-for="type in proState" :key="type.key" :label="type.displayName" :value="type.key" />
+            </el-select>
+          </el-form-item>
+            
+          <el-button type="primary" size="small"
+            @click="startSelect">
+            一键搜索</el-button>
+        </el-form>
+
+      </el-col>
+    </el-row>
+
     <!-- 表格 div/main/contain/header|table-->
     <el-row>
       <el-col :span="10" :offset="4" style="width:min-content">
-        <el-row v-for="elem in projects" :key="elem.name"
-          :span="10" style="overflow:hidden">
-        <!-- min-content make el-row width suitable -->
-          <pro-card
-            :id="elem.id"
-            :name="elem.name"
-            :sort="elem.sort"
-            :release-time="elem.releaseTime"
-            :need="elem.need"
-            :intro="elem.intro"
-          />
-        </el-row>
-        <el-pagination :page-size="projectsQuery.limit" :current-page.sync="projectsQuery.page" :total="proTotal"
+        <div v-if="projects.length!=0">
+          <el-row v-for="elem in projects" :key="elem.name"
+            style="overflow:hidden">
+          <!-- min-content make el-row width suitable -->
+            <pro-card
+              :id="elem.id"
+              :name="elem.name"
+              :sort="elem.sort"
+              :release-time="elem.releaseTime"
+              :need="elem.need"
+              :intro="elem.intro"
+            />
+          </el-row>
+        </div>
+        <div v-else>
+          <el-col class="null-res">
+            搜索结果为空
+          </el-col>
+        </div>
+        <el-pagination v-if="proTotal!=0" :page-size="projectsQuery.limit" :current-page.sync="projectsQuery.page" :total="proTotal"
           style="padding:20px" layout="prev, pager, next, jumper"
           @current-change="pageChange" />
       </el-col>
@@ -40,27 +80,54 @@
 
 
     </el-row>
+
+    <github-corner />
   </div>
 </template>
 
 <script>
 
 import ProCard from './component/ProCard'
+import GithubCorner from '@/components/GithubCorner'
 import { fetchProjects } from '@/api/projects'
+import { fetchAllTags } from '@/api/tags'
 import '@/styles/dashboard.scss'
+
+const proTypes = [
+  { key: undefined, displayName: '不选择种类' },
+  { key: '理工', displayName: '理工' },
+  { key: '社科', displayName: '社科' },
+  { key: '文史', displayName: '文史' },
+  { key: '经管', displayName: '经管' },
+  { key: '设计', displayName: '设计' },
+  { key: '其他', displayName: '其他' }
+]
+
+const proState = [
+  { key: 0, displayName: '正在招募' },
+  { key: 1, displayName: '正在审核' },
+  { key: 2, displayName: '审核失败' },
+  { key: 3, displayName: '归档项目' }
+]
 
 export default {
   name: 'Dashboard',
-  components: { ProCard },
+  components: { ProCard, GithubCorner },
   data() {
     return {
+      proTypes,
+      proState,
       projects: '',
       projectsLoading: false,
       projectsQuery: {
         limit: 10,
-        page: 1
+        page: 1,
+        state: 0,
+        tagId: undefined,
+        sort: undefined
       },
       proTotal: 0,
+      tags: [],
 
       links: [
         {
@@ -109,6 +176,15 @@ export default {
   },
 
   mounted() {
+    /* fix router-default-params failed
+    if (typeof(this.$route.params.tagId) != "undefined") {
+      this.projectsQuery.tagId = this.$route.params.tagId
+    } else if (!this.$route.params.tagId) {
+      this.$route.params.tagId = undefined
+    }
+    console.log(this.projectsQuery, this.$route);
+    */
+    
     this.initProjects()
     console.log(this.projects, 'mounted')
   },
@@ -123,7 +199,6 @@ export default {
       this.projects = this.$store.state.projects.projects
       console.log(this.projects, "this.pro");
       */
-      console.log('ljgsb')
       this.projectsLoading = true
       fetchProjects(this.projectsQuery).then(response => {
         console.log(response, 'respon')
@@ -134,6 +209,14 @@ export default {
           this.proTotal = data.total
         } else {
         }
+      })
+      fetchAllTags().then(response => {
+        const { status, data } = response.data
+        if (status === 'GET_SUCCESS') {
+          this.tags.push({id: undefined, name: "不选择tag"})
+          this.tags.push(...data.tags)
+        } else {
+        }
       },setTimeout(() => {
         this.projectsLoading = false
       }, 1.5 * 1000))
@@ -141,6 +224,24 @@ export default {
     pageChange(newPage) {
       console.log(newPage,"newpage");
       this.initProjects()
+    },
+
+    startSelect() {
+      this.projectsLoading = true
+      fetchProjects(this.projectsQuery).then(response => {
+        const { status, data } = response.data
+        console.log(response, "select");
+        
+        if (status === 'GET_SUCCESS') {
+          this.projects = data.projects
+          this.proTotal = data.total
+        } else if (status == 'PROJ_UNEXIST') {
+          this.projects = []
+          this.proTotal = 0
+        }
+      },setTimeout(() => {
+        this.projectsLoading = false
+      }, 1.5 * 1000))
     }
   }
 }
@@ -159,6 +260,15 @@ $table_title_bg: #ddf0e6;
   @media screen and (max-width: 1200px) {
     display: none;
   }
+}
+
+.null-res {
+  margin:0 auto;
+  text-align:center;
+  min-width:500px;
+  padding: 50px;
+
+  font-size: 20px;
 }
 
 </style>

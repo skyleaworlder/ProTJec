@@ -26,16 +26,19 @@
         </div>
         <el-dropdown-menu slot="dropdown">
           <router-link :to="'/profile/' + id">
-            <el-dropdown-item>Profile</el-dropdown-item>
+            <el-dropdown-item>个人信息</el-dropdown-item>
           </router-link>
           <router-link to="/">
-            <el-dropdown-item>Dashboard</el-dropdown-item>
+            <el-dropdown-item>主页</el-dropdown-item>
           </router-link>
           <a target="_blank" href="https://github.com/PanJiaChen/vue-element-admin/">
             <el-dropdown-item>Origin Github</el-dropdown-item>
           </a>
+          <a target="_blank" href="https://github.com/skyleaworlder/">
+            <el-dropdown-item>代码搬运工</el-dropdown-item>
+          </a>
           <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">Log Out</span>
+            <span style="display:block;">登出网站</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>

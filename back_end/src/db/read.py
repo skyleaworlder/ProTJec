@@ -95,25 +95,79 @@ def getUsrInfoById(usr_id):
 
 
 
-def getAllProInfo(limit=None, page=None, state=0, initiatorId=None):
+def getAllProInfo(
+        limit=None, page=None, state=0,
+        initiatorId=None, sort=None, tagId=None
+    ):
     record_names = (
         "id", "name", "sort", "releaseTime", "endTime", "need", "intro"
     )
+    def initiatorApp(initiatorId=None):
+        id_notNone = {
+            "where": (' AND usr_pro.usr_id = %s '),
+            "format": (initiatorId, )
+        }
+        id_None = {
+            'where': (' '), "format": ()
+        }
+        return id_notNone if initiatorId is not None else id_None
+    def sortApp(sort=None):
+        sort_notNone = {
+            "where": (' AND pro_sort = %s '),
+            "format": (sort, )
+        }
+        sort_None = {
+            'where': (' '), "format": ()
+        }
+        return sort_notNone if sort is not None else sort_None
+    def tagApp(tagId=None):
+        tag_notNone = {
+            "join": (' LEFT JOIN pro_tag ON pro_tag.pro_id = projects.id ',),
+            "where": (' AND pro_tag.tag_id = %s '),
+            "format": (tagId, )
+        }
+        tag_None = {
+            'join': ('  '),
+            'where': ('  '),
+            'format': ()
+        }
+        return tag_notNone if tagId is not None else tag_None
+    def limitoff(limit=None, page=None):
+        print(limit,page)
+        if page is not None and limit is not None:
+            lim_notNone = {
+                'limoff': ' LIMIT %s OFFSET %s ',
+                'format': (limit,(page - 1) * limit, )
+            }
+        else:
+            lim_None = {
+                'limoff': '  ',
+                'format': ()
+            }
+        return lim_notNone if (limit is not None and page is not None) else lim_None
+    def cat(tupleIn):
+        __st = ""
+        for elem in tupleIn:
+            __st += elem
+        return __st
+
+    initiator = initiatorApp(initiatorId=initiatorId)
+    sortor = sortApp(sort=sort)
+    tagor = tagApp(tagId=tagId)
+    limoff = limitoff(limit=limit, page=page)
     sql = '''
         SELECT id, pro_name, pro_sort, pro_releaseTime,
             pro_endTime, pro_need, pro_intro
         FROM projects
         LEFT JOIN usr_pro
         ON usr_pro.pro_id = projects.id
+    ''' + cat(tagor['join']) + '''
         WHERE pro_deleted = 'N' AND pro_state = %s
-    ''' + ('''AND usr_pro.usr_id = %s '''  if initiatorId is not None else " ") + '''
+    ''' + cat(initiator['where']) + cat(sortor['where']) + cat(tagor['where']) + '''
         AND usr_pro.upr_role = 'C'
-        ORDER BY pro_releaseTime ''' + ('''
-        LIMIT %s OFFSET %s
-    ''' if limit is not None and page is not None else " ")
+        ORDER BY pro_releaseTime ''' + limoff['limoff']
     # TODO: should be attach importance that pro_state are supposed to be 1
-    format_in = () + (state,) + ((initiatorId,) if initiatorId is not None else ()) +\
-        ((limit, (page - 1) * limit,) if limit is not None and page is not None else ())
+    format_in = () + (state,) + tagor['format'] + initiator['format'] + sortor['format'] + limoff['format']
     print(format_in, sql)
     DR = db_result.DbResult(record_names, baseSelect(sql, format_in))
     return DR

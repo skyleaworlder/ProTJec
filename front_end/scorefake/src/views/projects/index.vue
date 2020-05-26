@@ -34,7 +34,7 @@
         {{ proInfo.intro }}
       </div>
       <div class="pro-intro-content">
-        <span v-for="tag in proInfo.tags" :key="tag.tag_id"><router-link :to="'/proshow/'+ tag.tag_id">
+        <span v-for="tag in proInfo.tags" :key="tag.tag_id"><router-link :to="'/dashboard/'+ tag.tag_id">
           <el-tag :type="getButtonColor(proInfo.sort)" style="margin-right:5px">
             {{ tag.tag_name }}</el-tag>
         </router-link></span>

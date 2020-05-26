@@ -1,10 +1,10 @@
 <template>
-  <a href="https://github.com/PanJiaChen/vue-element-admin" target="_blank" class="github-corner" aria-label="View source on Github">
+  <a href="https://github.com/skyleaworlder" target="_blank" class="github-corner" aria-label="View source on Github">
     <svg
       width="80"
       height="80"
       viewBox="0 0 250 250"
-      style="fill:#40c9c6; color:#fff;"
+      style="fill:#40c9c6; color:#fff; position: absolute; top: 0; right: 0; border: 0"
       aria-hidden="true"
     >
       <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z" />
@@ -25,7 +25,7 @@
 
 <style scoped>
 .github-corner:hover .octo-arm {
-  animation: octocat-wave 560ms ease-in-out
+  animation: octocat-wave 560ms ease-in-out;
 }
 
 @keyframes octocat-wave {

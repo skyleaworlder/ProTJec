@@ -15,16 +15,26 @@ proBp = Blueprint("projects", __name__, url_prefix="/projects")
 @proBp.route('/fetch', methods=['GET'])
 def proFecth(**checkrst):
     try:
-        print("checkrst:", checkrst)
+        print("checkrst:", request.args)
         # args gain from response are string type
         limit = int(request.args.get('limit'))
         page = int(request.args.get('page'))
+        state = 0
         initiatorId = None
+        sort = None
+        tagId = None
         if request.args.get('initiatorId') is not None:
             initiatorId = int(request.args.get('initiatorId'))
+        if request.args.get('state') is not None:
+            state = int(request.args.get('state'))
+        if request.args.get('sort') is not None:
+            sort = int(request.args.get('sort'))
+        if request.args.get('tagId') is not None:
+            tagId = int(request.args.get('tagId'))
 
-        DR1 = R.getAllProInfo(limit, page, state=0, initiatorId=initiatorId)
-        DR2 = R.getAllProInfo(state=0, initiatorId=initiatorId)
+        DR1 = R.getAllProInfo(limit=limit, page=page, state=state, initiatorId=initiatorId, sort=sort, tagId=tagId)
+        DR2 = R.getAllProInfo(state=state, initiatorId=initiatorId, sort=sort, tagId=tagId)
+        print(DR1.records(), DR2.records())
 
         if DR1.size() == 0 or DR2.size() == 0:
             return jsonify({"status": PROJ_UNEXIST})

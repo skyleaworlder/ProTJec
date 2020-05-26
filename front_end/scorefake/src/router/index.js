@@ -74,8 +74,8 @@ export const constantRoutes = [
       {
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        name: 'dashboard',
+        meta: { title: '主页', icon: 'dashboard', affix: true }
       }
     ]
   }
@@ -86,6 +86,7 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
+  /*
   {
     path: '/permission',
     component: Layout,
@@ -127,7 +128,7 @@ export const asyncRoutes = [
       }
     ]
   },
-
+  */
   {
     path: '/projects',
     component: Layout,
@@ -153,21 +154,8 @@ export const asyncRoutes = [
       {
         path: ':id',
         component: () => import('@/views/profile/index'),
-        name: 'Profile',
-        meta: { title: 'Profile', icon: 'user', noCache: true }
-      }
-    ]
-  },
-
-  {
-    path: '/icon',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/icons/index'),
-        name: 'Icons',
-        meta: { title: 'Icons', icon: 'icon', noCache: true }
+        name: 'profile',
+        meta: { title: '个人信息', icon: 'user', noCache: true }
       }
     ]
   },
