@@ -15,7 +15,16 @@ export function isExternal(path) {
  * @returns {Boolean}
  */
 export function validNo(str) {
-  return true
+  for (let index = 0; index < str.length; index++) {
+    if (str[index] < '0' || str[index] > '9') {
+      return false
+    }
+  }
+  if (str.length <= 4 || str.length >= 8) {
+    return false
+  } else {
+    return true
+  }
 }
 
 /**
@@ -119,6 +128,27 @@ export const validateNeed = (rule, value, callback) => {
 export const validateIntro = (rule, value, callback) => {
   if (value.length <= 0) {
     callback(new Error('项目简介不能为空'))
+  } else {
+    callback()
+  }
+}
+export const validateUsrName = (rule, value, callback) => {
+  if (value.length <= 0) {
+    callback(new Error('用户名不能为空'))
+  } else {
+    callback()
+  }
+}
+export const validateUsrInst = (rule, value, callback) => {
+  if (value.length <= 0) {
+    callback(new Error('学院不能为空'))
+  } else {
+    callback()
+  }
+}
+export const validateUsrGrade = (rule, value, callback) => {
+  if (value.length <= 0) {
+    callback(new Error('年级不能为空'))
   } else {
     callback()
   }

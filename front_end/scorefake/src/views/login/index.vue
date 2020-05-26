@@ -43,8 +43,8 @@
 
       <el-row :gutter="15">
         <el-col :span="12">
-          <el-button style="width:100%; height:45px" type="primary">
-          注册</el-button>
+          <router-link :to="'/signup'"><el-button style="width:100%; height:45px" type="primary">
+          注册</el-button></router-link>
         </el-col>
         <el-col :span="12">
           <el-button :loading="loading" style="width:100%; height:45px" type="primary" @click="handleLogin">
@@ -78,14 +78,14 @@ export default {
   data() {
     const validateNo = (rule, value, callback) => {
       if (!validNo(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('学号不正确'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+        callback(new Error('密码不合乎规范'))
       } else {
         callback()
       }

@@ -1,5 +1,17 @@
 import request from '@/utils/request'
 
+export function signup(data) {
+  const { no, pwd, name, inst, grade } = data
+  return request({
+    url: '/profile/signup',
+    method: 'post',
+    data: {
+      no, pwd, name, inst, grade,
+      avatar: 'http://47.101.154.133:10080/avatars/1?s=287'
+    }
+  })
+}
+
 export function login(data) {
   const { no, password } = data
   // console.log(no, password);

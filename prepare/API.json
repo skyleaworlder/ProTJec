@@ -1,4 +1,29 @@
 {
+  "signup": [
+    {
+      "path":"/signup",
+      "method":"post",
+      "param":{
+        "json":{
+          "no":"str",
+          "pwd":"str",
+          "name":"str",
+          "inst":"str",
+          "grade":"str",
+          "avatar":"str"
+        }
+      },
+      "return":{
+        "type":"Object",
+        "content":{
+          "status":"str",
+          "data":{
+            "id":"int"
+          }
+        }
+      }
+    }
+  ],
   "login": [
     {
       "path": "/login",
