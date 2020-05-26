@@ -140,7 +140,7 @@ export const asyncRoutes = [
         hidden: true,
 
         meta: {
-          title: 'Projects'
+          title: '项目'
         }
       }
     ]
@@ -156,6 +156,19 @@ export const asyncRoutes = [
         component: () => import('@/views/profile/index'),
         name: 'profile',
         meta: { title: '个人信息', icon: 'user', noCache: true }
+      }
+    ]
+  },
+
+  {
+    path: '/garden',
+    component: Layout,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/garden/index'),
+        name: 'garden',
+        meta: { title: '校园导航', icon: 'search' }
       }
     ]
   },

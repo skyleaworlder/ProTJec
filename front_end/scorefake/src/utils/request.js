@@ -6,7 +6,7 @@ import { getToken } from '@/utils/auth'
 // create an axios instance
 const service = axios.create({
   // baseURL:'http://127.0.0.1:5000', // for ljg's flask dev-server
-  baseURL: 'http://127.0.0.1:5000', // for back-end test-server
+  baseURL: 'http://127.0.0.1:50000', // for back-end test-server
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })

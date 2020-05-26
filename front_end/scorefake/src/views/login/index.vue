@@ -3,7 +3,7 @@
     <el-form ref="loginForm" class="login-form" :model="loginForm" :rules="loginRules">
       <!--<img alt="Vue logo" height="100px" src="../assets/logo.png">-->
       <div class="login-title">
-        <h2>工程评价系统</h2>
+        <h1>ProTJec</h1>
       </div>
       <el-form-item prop="no">
         <span>
@@ -41,38 +41,28 @@
         </el-form-item>
       </el-tooltip>
 
-      <el-row :gutter="10">
-        <el-col :span="15">
-          <el-form-item>
-            <span>
-              <i class="el-icon-phone" />
-            </span>
-            <el-input v-model="tel" placeholder="手机号" :trigger-on-focus="false" />
-          </el-form-item>
-        </el-col>
-
-        <el-col :span="9">
-          <el-button style="width:100%; height:45px" type="primary" @click="sendCap">
-            <span>发送验证码</span>
-          </el-button>
-        </el-col>
-      </el-row>
-
       <el-row :gutter="15">
-        <el-col :span="15">
-          <el-form-item>
-            <span>
-              <i class="el-icon-tickets" />
-            </span>
-            <el-input v-model="loginForm.captcha" placeholder="验证码" />
-          </el-form-item>
+        <el-col :span="12">
+          <el-button style="width:100%; height:45px" type="primary">
+          注册</el-button>
         </el-col>
-        <el-col :span="9">
+        <el-col :span="12">
           <el-button :loading="loading" style="width:100%; height:45px" type="primary" @click="handleLogin">
-            登录
-          </el-button>
+            登录</el-button>
         </el-col>
       </el-row>
+
+      <div style="padding:20px 0 5px 0; color:#888; font-size:12px">
+        ProTJec 化自 "Project"，意为属于 TJU 的项目平台<br />
+      </div><div style="padding:0px; color:#888; font-size:12px">
+        ProTJec 是一个组队平台，希望你可以轻松找到正确的人<br />
+      </div>
+        
+
+      <div v-if="window_height>600"
+        style="position:fixed ; bottom:10px; left:50%; margin-left:-100px; color:#888">
+        Producted By Skyleaworlder
+      </div>
     </el-form>
   </div>
 </template>
@@ -114,7 +104,8 @@ export default {
       loading: false,
       redirect: undefined,
       otherQuery: {},
-      tel: ''
+      tel: '',
+      window_height: window.innerHeight
     }
   },
   watch: {
@@ -146,6 +137,9 @@ export default {
     checkCapslock(e) {
       const { key } = e
       this.capsTooltip = key && key.length === 1 && (key >= 'A' && key <= 'Z')
+    },
+    heightcalcu() {
+      return window.innerHeight
     },
     showPwd() {
       if (this.passwordType === 'password') {
@@ -227,56 +221,40 @@ $black: #000;
 $form_width: 520px;
 $cursor: #fff;
 
-@supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
-  .login-container .el-input input {
-    color: $cursor;
-  }
-}
+/*
+
+*/
 
 /* reset element-ui css */
 .app-main {
-  text-align: center;
+  // 这里把所有的都变成居中了，艹没加scoped
+  // text-align: center;
   color: #2c3e50;
 
-  /* rewrite input width in el-row for tel and capt */
-  .el-row {
+  /* rewrite input in el-row for no and password */
+  .login-form {
     .el-input {
       display: inline-block;
-      height: 45%;
-      width: 75%;
-    }
-  }
-
-  /* rewrite input in el-row for no and password */
-  .el-input {
-    display: inline-block;
-    height: 45px;
-    width: 85%;
-
-    input {
-      background: transparent;
-      border: none;
-      -webkit-appearance: none;
-      border-radius: none;
-      padding: 12px 5px 12px 15px;
-      color: $black;
       height: 45px;
-      caret-color: $cursor;
+      width: 85%;
 
-      &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $bg inset !important;
-        -webkit-text-fill-color: $cursor !important;
+      input {
+        background: transparent;
+        border: none;
+        -webkit-appearance: none;
+        border-radius: none;
+        padding: 12px 5px 12px 15px;
+        color: $black;
+        height: 45px;
+        caret-color: $cursor;
+
+        &:-webkit-autofill {
+          box-shadow: 0 0 0px 1000px $bg inset !important;
+          -webkit-text-fill-color: $cursor !important;
+        }
       }
     }
   }
-
-  .el-form-item {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    color: #454545;
-  }
-
 }
 </style>
 
@@ -287,10 +265,18 @@ $dark_gray:#889aa4;
 $light_gray:#eee;
 $black: #000;
 $form_width: 520px;
+$cursor: #fff;
+
+@supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
+  .login-container .el-input input {
+    color: $cursor;
+  }
+}
 
 .app-main {
   background-image: url('./assets/sakura.png');
-  min-height: 100%;
+  text-align: center;
+  height: 100%;
   width: 100%;
   overflow: hidden;
 
@@ -301,9 +287,24 @@ $form_width: 520px;
     height: 100%;
     max-width: 100%;
     margin: 40px 20px;
-    padding: 160px 30px;
+    padding: 180px 30px 180px 30px;
     margin: 0 auto;
     overflow: hidden;
+  }
+
+  .el-row {
+    .el-input {
+      display: inline-block;
+      height: 45%;
+      width: 75%;
+    }
+  }
+
+  .el-form-item {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    color: #454545;
   }
 
 }

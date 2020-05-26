@@ -5,7 +5,7 @@
         <el-tag class="right-tag" size="mini"
           :type="getButtonColor(proInfo.sort)"
           @click.native="sb">
-          查看详情</el-tag>
+          详情</el-tag>
     </div>
 
     <div class="card-content">
