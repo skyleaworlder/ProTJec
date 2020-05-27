@@ -1,0 +1,4 @@
+flask
+flask_cors>=3.0
+jwt>=1.0
+python-dotenv>=0.13

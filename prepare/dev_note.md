@@ -134,4 +134,10 @@
 
 1. 修改了 params 传值的不规范写法
 2. 修改了 agree/refuse 组队请求的 bug，之前是无论同意还是拒绝，表现出来的都是同意，现在加了一个 if 判断修改成的 state 输入，是前端问题
-3. 修改了 timeline 的显示错误，应该根据 route.params.id，而不是 store.state.user.id
+3. 修改了 timeline 的显示错误，应该根据 route.params.id，而不是 store.state.user.id，将 timeline 的位置提前
+4. 增加了注册功能和注册跳转功能
+5. 增加了 garden 功能
+
+## 5.27
+
+1. 增加了 backend 的打包能力
