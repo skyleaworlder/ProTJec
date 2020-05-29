@@ -39,7 +39,7 @@ git config core.autocrlf false
 至于启动时，只需要
 
 ```powershell
-cd /front_end/scorefake
+cd /front_end/ProTJec_frontend
 npm run dev
 ```
 
@@ -66,11 +66,11 @@ https://nodejs.org/en/download/
 启动的话
 
 ```powershell
-cd /back_end/src
+cd /back_end/ProTJec_backend
 flask run
 ```
 
-不需要配其他东西，在 `/back_end/src/.flaskenv` 里面配过模式和默认端口。
+不需要配其他东西，在 `/back_end/ProTJec_backend/.flaskenv` 里面配过模式和默认端口。
 
 运行这个后端需要在 MySQL 中首先运行 `prepare` 里面的数据库脚本，加载数据库。
 
