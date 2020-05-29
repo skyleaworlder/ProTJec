@@ -28,7 +28,7 @@ def proFecth(**checkrst):
         if request.args.get('state') is not None:
             state = int(request.args.get('state'))
         if request.args.get('sort') is not None:
-            sort = int(request.args.get('sort'))
+            sort = (request.args.get('sort'))
         if request.args.get('tagId') is not None:
             tagId = int(request.args.get('tagId'))
 

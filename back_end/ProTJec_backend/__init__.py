@@ -15,4 +15,4 @@ app.register_blueprint(response.rspBp)
 CORS(app, supports_credentials=True)
 
 if __name__ == '__main__':
-    app.run(port=8888, host='localhost', debug=True)
+    app.run(port=50000, host='0.0.0.0', debug=True)

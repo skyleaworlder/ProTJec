@@ -167,7 +167,7 @@ def getAllProInfo(
         AND usr_pro.upr_role = 'C'
         ORDER BY pro_releaseTime ''' + limoff['limoff']
     # TODO: should be attach importance that pro_state are supposed to be 1
-    format_in = () + (state,) + tagor['format'] + initiator['format'] + sortor['format'] + limoff['format']
+    format_in = () + (state,) + initiator['format'] + sortor['format'] + tagor['format'] + limoff['format']
     print(format_in, sql)
     DR = db_result.DbResult(record_names, baseSelect(sql, format_in))
     return DR

@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     license="MIT",
-    name="ProTJec-backend",
+    name="ProTJec_backend",
     version='0.1',
     description=("developed by skyleaworlder"),
 
@@ -13,13 +13,15 @@ setup(
         'flask',
         'flask_cors>=3.0',
         'pyjwt>=1.7',
-        'python-dotenv>=0.13'
+        'python-dotenv>=0.13',
+        'PyMySQL>=0.9',
+        'gunicorn>=20.0'
     ],
 
     packages=[
-        'src',        # source
-        'src/db',     # database operations
-        'src/routes'  # blueprint
+        'ProTJec_backend',        # source
+        'ProTJec_backend/db',     # database operations
+        'ProTJec_backend/routes'  # blueprint
     ],
     zip_safe=False
 )

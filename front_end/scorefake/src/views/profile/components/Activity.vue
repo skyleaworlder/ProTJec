@@ -85,7 +85,7 @@ export default {
       avatarPrefix,
       carouselPrefix,
       select: {
-        limit: 4,
+        limit: 10,
         page: 1
       },
       myProjects: [],
